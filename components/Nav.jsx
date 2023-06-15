@@ -50,7 +50,7 @@ const Nav = () => {
                 </div>
                 <div className="flex flex-col items-center cursor-pointer">
                     <Link 
-                    href='/'
+                    href='/orders'
                     className="pb-2"
                     >
                         <FaRegListAlt 
