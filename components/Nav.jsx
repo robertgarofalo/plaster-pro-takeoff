@@ -80,16 +80,16 @@ const Nav = () => {
                     </Link>
                     <p className="text-base">Profile</p>
                 </div>
-                <div className="flex justify-center items-center cursor-pointer bg-red-500 px-3 rounded-md">
+                <div className="flex justify-center items-center cursor-pointer bg-red-400 px-3 rounded-md">
                     <button
-                    onClick={signOut}
-                    className="pr-2 "
+                    onClick={() => { signOut({ callbackUrl: '/'}) }}
+                    className="pr-2 flex"
                     >
                         <FiLogOut 
                         size={25}
                         color={'fff'}
                         />
-                    <p className="text-base text-white">Log out</p>
+                    <p className="text-base text-white pl-2">Log out</p>
                     </button>
                 </div>
         </div>
@@ -101,7 +101,7 @@ const Nav = () => {
                   type='button'
                   key={provider.name}
                   onClick={() => {
-                    signIn(provider.id);
+                    signIn(provider.id, { callbackUrl: '/dashboard' });
                   }}
                   className='black_btn'
                 >
