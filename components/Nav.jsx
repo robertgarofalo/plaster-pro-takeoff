@@ -37,7 +37,7 @@ const Nav = () => {
             height={50}
             />
             <Link
-            href='/'
+            href={session?.user ? '/dashboard' : '/'}
             className="pl-4 text-xl font-medium"
             >
                 Plaster Pro Takeoff
@@ -49,7 +49,7 @@ const Nav = () => {
         <div className="flex w-96 justify-between">
                 <div className="flex flex-col items-center cursor-pointer">
                     <Link 
-                    href='/'
+                    href='/jobs'
                     className="pb-2"
                     >
                         <AiOutlineHome 
