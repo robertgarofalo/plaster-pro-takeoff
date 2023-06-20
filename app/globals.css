@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.new_job_tab {
+    @apply w-7/12 
+}
+
+.new_job_panel {
+    @apply flex flex-col items-center border border-gray-400 border-t-transparent rounded-md
+}

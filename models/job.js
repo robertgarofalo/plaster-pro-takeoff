@@ -11,6 +11,9 @@ const JobSchema = new Schema({
     TakeoffTime: {
         type: String
     },
+    ClientName: {
+        type: String
+    },
     DeliveryAddress: [{
         LotUnit: String,
         StreetAddress: String,
@@ -19,6 +22,9 @@ const JobSchema = new Schema({
         Postcode: Number,
         Country: String
     }],
+    JobDetails: {
+        type: String
+    },
     // new job, rooms etc
 })
 

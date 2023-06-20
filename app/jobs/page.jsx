@@ -13,6 +13,7 @@ const Jobs = () => {
         onClick={() => {
             router.push('/jobs/create-new')
         }}
+        className="border border-gray rounded-md px-3 bg-black text-white"
         >
             Create New
         </button>
