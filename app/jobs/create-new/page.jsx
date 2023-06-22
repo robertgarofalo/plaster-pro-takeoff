@@ -1,9 +1,9 @@
-import NewJobForm from "@/components/NewJobForm"
+import NewJobForm from "@/app/jobs/create-new/NewJobForm"
 
 const CreateNewJob = () => {
   return (
-    <div>
-      <h2>Create New Job</h2>
+    <div className="flex flex-col items-center mt-5">
+      <h2 className="text-3xl">New Job</h2>
       <NewJobForm />
     </div>
   )

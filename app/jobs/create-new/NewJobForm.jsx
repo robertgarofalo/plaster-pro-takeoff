@@ -5,14 +5,15 @@ import { useState } from "react"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+import JobModal from "./JobModal";
+
+// Job Details Tab
 const JobDetails = () => {
   const [newJob, setNewJob] = useState({
     DeliveryAddress: {}
   })
-
   return (
   <div className='new_job_panel'>
-    <h1>New Job</h1>
     <form
     onSubmit={() => {}}
     className="flex flex-col w-7/12"
@@ -61,7 +62,8 @@ const JobDetails = () => {
         <div>
           <select 
           className="border border-gray rounded-md p-1.5 my-1 mr-2"
-          onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { Suburb: e.target.value }})}
+          onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { State: e.target.value }})}
+          defaultValue={'VIC'}
           >
             <option>ACT</option>
             <option>NSW</option>
@@ -69,7 +71,7 @@ const JobDetails = () => {
             <option>QLD</option>
             <option>SA</option>
             <option>TAS</option>
-            <option selected>VIC</option>
+            <option>VIC</option>
             <option>WA</option>
           </select>
           <input
@@ -98,24 +100,66 @@ const JobDetails = () => {
   )
 }
 
-const JobTakeOff = () => {
-const [ takeOff, setTakeoff ] = useState([])
+// Take Off Tab
+const JobTakeOff = ({ modal, setModal, takeOff }) => {
 
   return (
-    <div className='new_job_panel'>
-      <p>Take off</p>
-      <button className="border border-none px-4 bg-green-500 text-white rounded-md p-2 m-1">
+    <div className='new_job_panel h-auto px-2'>
+      <button 
+      className="border border-none px-4 bg-green-500 text-white rounded-md p-2 m-1"
+      onClick={() => {setModal(true)}}
+      >
         Add room
       </button>
+      {/* TABLE */}
+      {
+      takeOff.length > 0 ? ( 
+      <table className="w-full mt-5 text-center">
+        <thead className="bg-gray-200 px-2">
+          <tr className="text-center">
+            <th>Room</th>
+            <th>Height (mm)</th>
+            <th>Ceiling (L X W)</th>
+            <th>Wall (L)</th>
+            <th>Cornices (L)</th>
+            <th>Images</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+        {
+        takeOff.map((item, index) => (
+          <tr key={`item_${index}`} className={index % 2 !== 0 && 'bg-gray-100'}>
+            <td >{item.roomName}</td>
+            <td>{item.roomHeight}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Edit X</td>
+          </tr>
+          ))
+          }
+        </tbody>
+      </table>
+      )
+      :
+      (
+        <p className="my-5">No Rooms</p>
+      )
+}
     </div>
   )
 }
 
+// create-new
 const NewJobForm = () => {
+  const [modal, setModal] = useState(false);
+  const [ takeOff, setTakeOff ] = useState([])
 
   return (
       <section className="flex flex-col justify-center items-center py-5 w-full">
-        <Tabs className={'new_job_tab'}>
+        <Tabs className={'new_job_tab'} >
         <TabList>
           <Tab>Job Details</Tab>
           <Tab>Take Off</Tab>
@@ -125,17 +169,19 @@ const NewJobForm = () => {
           <JobDetails />
         </TabPanel>
         <TabPanel>
-          <JobTakeOff />
+          <JobTakeOff modal={modal} setModal={setModal} takeOff={takeOff}/>
         </TabPanel>
       </Tabs>
       <nav className="w-full pr-36 border-t border-black-200 shadow-2xl shadow-black absolute bottom-0 h-20 flex items-center justify-end">
         <button 
         className="bg-red-400 py-2 px-20 text-white border rounded-md"
         >
-          Save Job
+          Save
         </button>
         </nav>
+        <JobModal modal={modal} setModal={setModal} takeOff={takeOff} setTakeOff={setTakeOff}/>
     </section>
+    
 
   )
 }
