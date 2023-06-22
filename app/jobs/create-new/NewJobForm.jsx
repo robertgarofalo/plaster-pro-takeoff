@@ -8,10 +8,7 @@ import 'react-tabs/style/react-tabs.css';
 import JobModal from "./JobModal";
 
 // Job Details Tab
-const JobDetails = () => {
-  const [newJob, setNewJob] = useState({
-    DeliveryAddress: {}
-  })
+const JobDetails = ({ jobDetails, setJobDetails }) => {
   return (
   <div className='new_job_panel'>
     <form
@@ -21,34 +18,36 @@ const JobDetails = () => {
       <label className="flex flex-col items-start my-3">
         <span>Client Name</span>
         <input
-        value={newJob.clientName}
-        onChange={(e) => setNewJob({ ...newJob, clientName: e.target.value})}
+        value={jobDetails.ClientName ?? ''}
+        onChange={(e) => setJobDetails({ ...jobDetails, ClientName: e.target.value})}
         placeholder='Name'
         required
         className="border border-gray rounded-md p-1 w-full"
         />
       </label>
 
-      <label className="flex flex-col items-start my-3">
-        <span>Job Address</span>
+      <span className="flex flex-col items-start my-3">
+        <label>
+          <span>Job Address</span>
+        </label>
         <input
-        value={newJob.DeliveryAddress.LotUnit}
-        onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { LotUnit: e.target.value }})}
+        value={jobDetails.LotUnit ?? ''}
+        onChange={(e) => setJobDetails({ ...jobDetails, LotUnit: e.target.value })}
         placeholder='Lot/Unit (optional)'
         required
         className="border border-gray rounded-md p-1 my-2 w-full"
         />
         <input
-        value={newJob.DeliveryAddress.StreetAddress}
-        onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { StreetAddress: e.target.value }})}
+        value={jobDetails.StreetAddress ?? ''}
+        onChange={(e) => setJobDetails({ ...jobDetails, StreetAddress: e.target.value })}
         placeholder='Street Address'
         required
         className="border border-gray rounded-md p-1 my-2 w-full"
         />
         <div>
           <input
-          value={newJob.DeliveryAddress.Suburb}
-          onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { Suburb: e.target.value }})}
+          value={jobDetails.Suburb ?? ''}
+          onChange={(e) => setJobDetails({ ...jobDetails, Suburb: e.target.value })}
           placeholder='Suburb'
           required
           className="border border-gray rounded-md p-1 my-2"
@@ -62,33 +61,33 @@ const JobDetails = () => {
         <div>
           <select 
           className="border border-gray rounded-md p-1.5 my-1 mr-2"
-          onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { State: e.target.value }})}
+          onChange={(e) => setJobDetails({ ...jobDetails, State: e.target.value })}
           defaultValue={'VIC'}
           >
-            <option>ACT</option>
-            <option>NSW</option>
-            <option>NT</option>
-            <option>QLD</option>
-            <option>SA</option>
-            <option>TAS</option>
-            <option>VIC</option>
-            <option>WA</option>
+            <option value='ACT'>ACT</option>
+            <option value='NSW'>NSW</option>
+            <option value='NT'>NT</option>
+            <option value='QLD'>QLD</option>
+            <option value='SA'>SA</option>
+            <option value='TAS'>TAS</option>
+            <option value='VIC'>VIC</option>
+            <option value='WA'>WA</option>
           </select>
           <input
-          value={newJob.DeliveryAddress.Postcode}
-          onChange={(e) => setNewJob({ ...newJob, DeliveryAddress: { Postcode: e.target.value }})}
+          value={jobDetails.Postcode ?? ''}
+          onChange={(e) => setJobDetails({ ...jobDetails, Postcode: e.target.value })}
           placeholder='Postcode'
           required
           className="border border-gray rounded-md p-1 my-1"
           />
         </div>
-      </label>
+      </span>
       
       <label className="flex flex-col items-start my-3">
         <span>Job Details</span>
         <textarea
-        value={newJob.JobDetails}
-        onChange={(e) => setNewJob({ ...newJob, JobDetails: e.target.value})}
+        value={jobDetails.details ?? ''}
+        onChange={(e) => setJobDetails({ ...jobDetails, details: e.target.value})}
         placeholder='Details...'
         required
         className="border border-gray rounded-md p-1 my-2 w-full"
@@ -152,10 +151,16 @@ const JobTakeOff = ({ modal, setModal, takeOff }) => {
   )
 }
 
-// create-new
-const NewJobForm = () => {
-  const [modal, setModal] = useState(false);
+// Render form
+const JobForm = () => {
+  const [jobDetails, setJobDetails] = useState({})
   const [ takeOff, setTakeOff ] = useState([])
+  const [modal, setModal] = useState(false);
+
+  const handleSaveJob = () => {
+    console.log('JOB DETAILS ----- ', jobDetails)
+    console.log('TAKE OFF -------- ', takeOff)
+  }
 
   return (
       <section className="flex flex-col justify-center items-center py-5 w-full">
@@ -166,7 +171,7 @@ const NewJobForm = () => {
         </TabList>
 
         <TabPanel>
-          <JobDetails />
+          <JobDetails jobDetails={jobDetails} setJobDetails={setJobDetails}/>
         </TabPanel>
         <TabPanel>
           <JobTakeOff modal={modal} setModal={setModal} takeOff={takeOff}/>
@@ -175,6 +180,7 @@ const NewJobForm = () => {
       <nav className="w-full pr-36 border-t border-black-200 shadow-2xl shadow-black absolute bottom-0 h-20 flex items-center justify-end">
         <button 
         className="bg-red-400 py-2 px-20 text-white border rounded-md"
+        onClick={handleSaveJob}
         >
           Save
         </button>
@@ -185,4 +191,4 @@ const NewJobForm = () => {
 
   )
 }
-export default NewJobForm
+export default JobForm

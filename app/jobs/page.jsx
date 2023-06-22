@@ -7,13 +7,13 @@ const Jobs = () => {
     const router = useRouter()
 
   return (
-    <div>
-        <h2>Jobs</h2>
+    <div className="flex flex-col items-center mt-5">
+        <h2 className="text-2xl">Jobs</h2>
         <button
         onClick={() => {
             router.push('/jobs/create-new')
         }}
-        className="border border-gray rounded-md px-3 bg-black text-white"
+        className="border border-gray rounded-md px-6 py-2 bg-black text-white mt-5"
         >
             Create New
         </button>
