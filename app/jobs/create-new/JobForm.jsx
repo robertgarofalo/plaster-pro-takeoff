@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from "react"
+import { useSession } from 'next-auth/react'
+import { useRouter } from "next/navigation";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -157,9 +159,53 @@ const JobForm = () => {
   const [ takeOff, setTakeOff ] = useState([])
   const [modal, setModal] = useState(false);
 
-  const handleSaveJob = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  const handleSaveJob = async (e) => {
     console.log('JOB DETAILS ----- ', jobDetails)
     console.log('TAKE OFF -------- ', takeOff)
+
+    e.preventDefault()
+
+    // setSubmitting(true)
+
+    try {
+      // const date = new Date()
+      const response = await fetch('/api/jobs/new', {
+        method: 'POST',
+        body: JSON.stringify({
+          //  AccountNo: session?.user.id,
+          //  TakeoffDate: date.toLocaleDateString(),
+          //  TakeOffTime: date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+          //  ClientName: jobDetails.ClientName,
+          //  DeliveryAddress: [{
+          //   LotUnit: jobDetails.LotUnit,
+          //   StreetAddress: jobDetails.StreetAddress,
+          //   Suburb: jobDetails.Suburb,
+          //   State: jobDetails.State,
+          //   Postcode: jobDetails.Postcode,
+          //   Country: jobDetails.Country
+          //  }],
+          //  JobDetails: jobDetails.details,
+          //  TakeOff: [{
+          //   roomName: takeOff.roomName,
+          //   roomHeight: takeOff.roomHeight
+          //  }]
+          jobDetails,
+          takeOff
+          })
+      })
+
+      if(response.ok) {
+        router.push('/jobs')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      // setSubmitting(false)
+    }
+
   }
 
   return (

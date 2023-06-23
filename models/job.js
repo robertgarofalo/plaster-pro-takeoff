@@ -25,7 +25,11 @@ const JobSchema = new Schema({
     JobDetails: {
         type: String
     },
-    // new job, rooms etc
+    TakeOff: [{
+        roomName: String,
+        roomHeight: String
+    }]
+    
 })
 
 const Job = models.Job || model('Job', JobSchema)
