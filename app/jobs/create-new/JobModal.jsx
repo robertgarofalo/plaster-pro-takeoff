@@ -4,13 +4,13 @@ import 'react-pure-modal/dist/react-pure-modal.min.css';
 
 
 const JobModal = ({ modal, setModal, takeOff, setTakeOff }) => {
-  const [ roomName, setRoomName ] = useState()
-  const [ roomHeight, setRoomHeight ] = useState()
+  const [ roomName, setRoomName ] = useState('')
+  const [ roomHeight, setRoomHeight ] = useState(null)
 
   const handleCancel = () => {
     setModal(false)
     setRoomName('')
-    setRoomHeight('')
+    setRoomHeight(null)
   }
 
   const handleAddAll = () => {
@@ -22,7 +22,7 @@ const JobModal = ({ modal, setModal, takeOff, setTakeOff }) => {
 
     setModal(false)
     setRoomName('')
-    setRoomHeight('')
+    setRoomHeight(null)
   }
 
     const roomButtons = [
@@ -78,6 +78,7 @@ const JobModal = ({ modal, setModal, takeOff, setTakeOff }) => {
             onChange={(e) => setRoomHeight(e.target.value)}
             placeholder='Height'
             required
+            type="number"
             className="border border-gray rounded-md p-1 w-full"
             />
       </label>

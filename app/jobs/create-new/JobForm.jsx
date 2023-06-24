@@ -186,12 +186,7 @@ const JobForm = () => {
             Country: jobDetails.Country
            },
            JobDetails: jobDetails.Details,
-          //  TakeOff: [{
-          //   roomName: takeOff.roomName,
-          //   roomHeight: takeOff.roomHeight
-          //  }]
-          // jobDetails
-          // takeOff
+           TakeOff: takeOff 
           })
       })
 
@@ -229,7 +224,7 @@ const JobForm = () => {
           Save
         </button>
         </nav>
-        {/* <JobModal modal={modal} setModal={setModal} takeOff={takeOff} setTakeOff={setTakeOff}/> */}
+        <JobModal modal={modal} setModal={setModal} takeOff={takeOff} setTakeOff={setTakeOff}/>
     </section>
     
 

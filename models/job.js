@@ -5,9 +5,7 @@ const JobSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    ClientName: {
-        type: String
-    },
+    ClientName: String,
     DeliveryAddress: {
         LotUnit: Number,
         StreetAddress: String,
@@ -16,14 +14,14 @@ const JobSchema = new Schema({
         Postcode: Number,
         Country: String
     },
-    JobDetails: {
-        type: String
-    },
-    // TakeOff: [{
-    //     roomName: String,
-    //     roomHeight: String
-    // }]
-}, {timestamps: true})
+    JobDetails: String,
+    TakeOff: [{
+        roomName: String,
+        roomHeight: Number
+    }]
+}, 
+    {timestamps: true}
+)
 
 const Job = models.Job || model('Job', JobSchema)
 

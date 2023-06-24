@@ -4,7 +4,7 @@ import { connectToDB } from "@/utils/database";
 import Job from "@/models/job";
 
 export const POST = async (req, res) => {
-    const {AccountNo, ClientName, JobDetails, DeliveryAddress} = await req.json()
+    const {AccountNo, ClientName, JobDetails, DeliveryAddress, TakeOff} = await req.json()
 
     try {
         await connectToDB()
@@ -20,7 +20,8 @@ export const POST = async (req, res) => {
                 State: DeliveryAddress.State,
                 Postcode: DeliveryAddress.Postcode,
                 Country: DeliveryAddress.Country
-            }
+            },
+            TakeOff: TakeOff
         })
 
         await newJob.save()
