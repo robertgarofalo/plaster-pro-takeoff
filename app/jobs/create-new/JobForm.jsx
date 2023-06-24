@@ -36,7 +36,7 @@ const JobDetails = ({ jobDetails, setJobDetails }) => {
         value={jobDetails.LotUnit ?? ''}
         onChange={(e) => setJobDetails({ ...jobDetails, LotUnit: e.target.value })}
         placeholder='Lot/Unit (optional)'
-        required
+        type="number"
         className="border border-gray rounded-md p-1 my-2 w-full"
         />
         <input
@@ -79,7 +79,7 @@ const JobDetails = ({ jobDetails, setJobDetails }) => {
           value={jobDetails.Postcode ?? ''}
           onChange={(e) => setJobDetails({ ...jobDetails, Postcode: e.target.value })}
           placeholder='Postcode'
-          required
+          type="number"
           className="border border-gray rounded-md p-1 my-1"
           />
         </div>
@@ -88,8 +88,8 @@ const JobDetails = ({ jobDetails, setJobDetails }) => {
       <label className="flex flex-col items-start my-3">
         <span>Job Details</span>
         <textarea
-        value={jobDetails.details ?? ''}
-        onChange={(e) => setJobDetails({ ...jobDetails, details: e.target.value})}
+        value={jobDetails.Details ?? ''}
+        onChange={(e) => setJobDetails({ ...jobDetails, Details: e.target.value})}
         placeholder='Details...'
         required
         className="border border-gray rounded-md p-1 my-2 w-full"
@@ -165,35 +165,33 @@ const JobForm = () => {
   const handleSaveJob = async (e) => {
     console.log('JOB DETAILS ----- ', jobDetails)
     console.log('TAKE OFF -------- ', takeOff)
+    console.log(session?.user.id)
 
     e.preventDefault()
 
     // setSubmitting(true)
 
     try {
-      // const date = new Date()
       const response = await fetch('/api/jobs/new', {
         method: 'POST',
         body: JSON.stringify({
-          //  AccountNo: session?.user.id,
-          //  TakeoffDate: date.toLocaleDateString(),
-          //  TakeOffTime: date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
-          //  ClientName: jobDetails.ClientName,
-          //  DeliveryAddress: [{
-          //   LotUnit: jobDetails.LotUnit,
-          //   StreetAddress: jobDetails.StreetAddress,
-          //   Suburb: jobDetails.Suburb,
-          //   State: jobDetails.State,
-          //   Postcode: jobDetails.Postcode,
-          //   Country: jobDetails.Country
-          //  }],
-          //  JobDetails: jobDetails.details,
+           AccountNo: session?.user.id,
+           ClientName: jobDetails.ClientName,
+           DeliveryAddress: {
+            LotUnit: jobDetails.LotUnit,
+            StreetAddress: jobDetails.StreetAddress,
+            Suburb: jobDetails.Suburb,
+            State: jobDetails.State,
+            Postcode: jobDetails.Postcode,
+            Country: jobDetails.Country
+           },
+           JobDetails: jobDetails.Details,
           //  TakeOff: [{
           //   roomName: takeOff.roomName,
           //   roomHeight: takeOff.roomHeight
           //  }]
-          jobDetails,
-          takeOff
+          // jobDetails
+          // takeOff
           })
       })
 
@@ -231,7 +229,7 @@ const JobForm = () => {
           Save
         </button>
         </nav>
-        <JobModal modal={modal} setModal={setModal} takeOff={takeOff} setTakeOff={setTakeOff}/>
+        {/* <JobModal modal={modal} setModal={setModal} takeOff={takeOff} setTakeOff={setTakeOff}/> */}
     </section>
     
 

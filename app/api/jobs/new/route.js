@@ -4,14 +4,23 @@ import { connectToDB } from "@/utils/database";
 import Job from "@/models/job";
 
 export const POST = async (req, res) => {
-    const {jobDetails, takeOff } = await req.json()
+    const {AccountNo, ClientName, JobDetails, DeliveryAddress} = await req.json()
 
     try {
         await connectToDB()
 
         const newJob = new Job({
-            jobDetails,
-            takeOff
+            AccountNo,
+            ClientName,
+            JobDetails,
+            DeliveryAddress: {
+                LotUnit: DeliveryAddress.LotUnit,
+                StreetAddress: DeliveryAddress.StreetAddress,
+                Suburb: DeliveryAddress.Suburb,
+                State: DeliveryAddress.State,
+                Postcode: DeliveryAddress.Postcode,
+                Country: DeliveryAddress.Country
+            }
         })
 
         await newJob.save()

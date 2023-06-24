@@ -5,32 +5,25 @@ const JobSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    TakeoffDate: {
-        type: Date
-    },
-    TakeoffTime: {
-        type: String
-    },
     ClientName: {
         type: String
     },
-    DeliveryAddress: [{
-        LotUnit: String,
+    DeliveryAddress: {
+        LotUnit: Number,
         StreetAddress: String,
         Suburb: String,
         State: String,
         Postcode: Number,
         Country: String
-    }],
+    },
     JobDetails: {
         type: String
     },
-    TakeOff: [{
-        roomName: String,
-        roomHeight: String
-    }]
-    
-})
+    // TakeOff: [{
+    //     roomName: String,
+    //     roomHeight: String
+    // }]
+}, {timestamps: true})
 
 const Job = models.Job || model('Job', JobSchema)
 
