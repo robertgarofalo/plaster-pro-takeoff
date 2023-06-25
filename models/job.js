@@ -7,11 +7,11 @@ const JobSchema = new Schema({
     },
     ClientName: String,
     DeliveryAddress: {
-        LotUnit: Number,
+        LotUnit: String,
         StreetAddress: String,
         Suburb: String,
         State: String,
-        Postcode: Number,
+        Postcode: String,
         Country: String
     },
     JobDetails: String,

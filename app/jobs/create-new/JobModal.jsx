@@ -58,7 +58,7 @@ const JobModal = ({ modal, setModal, takeOff, setTakeOff }) => {
   }}
 >
     <form
-        onSubmit={() => {}}
+        onSubmit={(e) => {e.preventDefault()}}
         className="flex flex-col items-center"
     >
         <label className="flex flex-col items-start my-3 w-1/2">
@@ -87,11 +87,23 @@ const JobModal = ({ modal, setModal, takeOff, setTakeOff }) => {
                 <button 
                 key={`button ${index}`}
                 className={`rounded-md ${room.color} text-white py-2 px-4`}
+                onClick={() => {alert(room.item)}}
                 >
                     Add {room.item}
                 </button>
             ))}
         </section>
+            <section className='bg-pink-100 w-full h-auto'>
+        <input
+            value={roomHeight}
+            onChange={(e) => setRoomHeight(e.target.value)}
+            placeholder='Height'
+            required
+            type="number"
+            className="border border-gray rounded-md p-1 w-full"
+            />
+
+            </section>
     </form>
 </PureModal>
   )
